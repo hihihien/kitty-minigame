@@ -12,8 +12,8 @@ export default function Game (){
     const [stepIndex, setStepIndex] = useState(0);
 
     const scene = scenes.find((s) => s.id === currentSceneId);
-    const step = scene?.steps?.[stepIndex];
-    const image = sceneImages[scene?.id || 'scene_1']; //fallback just in case
+    const step = scene?.steps?.[stepIndex] || null;
+    const image = sceneImages[scene?.id || '']; //fallback just in case
 
     const handleNext = () => {
         if (!scene) return;
@@ -27,7 +27,7 @@ export default function Game (){
             setStepIndex(0);
         }
         // do nothing if it's last step
-    }
+    };
 
     const handleChoice = (nextId: string) => {
         setCurrentSceneId(nextId);
@@ -40,15 +40,21 @@ export default function Game (){
 
     return (
         <div className='flex flex-col items-center justify-center min-h-screen p-4 text-center bg-black text-white'>
-            <div className='max-w-3xl'>
-                <Image 
-                src={image} 
-                alt={'Scene ${scene.id}'}
-                width={1920}
-                height={1080}
-                className='w-full h-auto'  
-                />
-
+            <div className='w-full max-w-3xl'>
+                {image ? (
+                    <Image 
+                        src={image} 
+                        alt={'Scene ${scene.id}'}
+                        width={1920}
+                        height={1080}
+                        className='w-full h-auto'  
+                    />
+                ) : (
+                    <div className='w-full h-[400px] bg-gray-800 flex items-center justify-center'>
+                        <p className='text-white'>Image not found for this scene.</p>
+                    </div>
+                )}
+                
                 <div className='mt-6 text-lg leading-relaxed'>
                     {step && <p>{step.text}</p>}
                 </div>
