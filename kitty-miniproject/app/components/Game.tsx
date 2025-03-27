@@ -8,12 +8,12 @@ import Image from 'next/image';
 
 
 export default function Game (){
-    const [currentSceneId, setCurrentSceneId] = useState('scene_01');
+    const [currentSceneId, setCurrentSceneId] = useState('scene_1');
     const [stepIndex, setStepIndex] = useState(0);
 
     const scene = scenes.find((s) => s.id === currentSceneId);
     const step = scene?.steps?.[stepIndex];
-    const image = sceneImages[scene?.id || 'scene_01']; //fallback just in case
+    const image = sceneImages[scene?.id || 'scene_1']; //fallback just in case
 
     const handleNext = () => {
         if (!scene) return;
@@ -44,7 +44,6 @@ export default function Game (){
                 <Image 
                 src={image} 
                 alt={'Scene ${scene.id}'}
-                placeholder='blur'
                 width={1920}
                 height={1080}
                 className='w-full h-auto'  

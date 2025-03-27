@@ -2,58 +2,58 @@
 
 export const scenes = [
     {
-      id: 'scene_01',
-      image: 'scene_01.png',
+      id: 'scene_1',
+      image: 'scene_1.png',
       steps: [
         { text: "You are asleep on a soft couch. Everything is quiet." },
         { text: "A strange dream lingers in your whiskers, but it fades as you begin to stir..." }
       ],
-      nextSceneId: 'scene_02',
+      nextSceneId: 'scene_2',
     },
     {
-      id: 'scene_02',
-      image: 'scene_02.png',
+      id: 'scene_2',
+      image: 'scene_2.png',
       steps: [
         { text: "Your eyes flutter open. The room feels unfamiliar." },
         { text: "Your fur is ruffled, and your tail twitches involuntarily." },
         { text: "Something feels... off. You don’t remember how you got here." }
       ],
-      nextSceneId: 'scene_03',
+      nextSceneId: 'scene_3',
     },
     {
-      id: 'scene_03',
+      id: 'scene_3',
       image: 'scene_3.png',
       steps: [
         { text: "Your ears perk up. You stretch your back, spine arching like a bow." },
         { text: "Still, the unease remains." }
       ],
-      nextSceneId: 'scene_04_5',
+      nextSceneId: 'scene_4',
     },
     {
-      id: 'scene_04_5',
-      image: 'scene_4+5.png',
+      id: 'scene_4',
+      image: 'scene_4.png',
       steps: [
         { text: "On the floor, near the coffee table, lies a girl." },
         { text: "She is still—too still. Is she sleeping? Or...?" },
         { text: "You need to find out what happened. Maybe looking around will help you remember." }
       ],
       choices: [
-        { text: "Approach the Girl", nextSceneId: 'scene_06' },
-        { text: "Investigate the Apartment", nextSceneId: 'scene_08' }
+        { text: "Approach the Girl", nextSceneId: 'scene_6' },
+        { text: "Investigate the Apartment", nextSceneId: 'scene_8' }
       ]
     },
     // Approach the Girl path
     {
-      id: 'scene_06',
+      id: 'scene_6',
       image: 'scene_6.png',
       steps: [
         { text: "You step closer and gently nudge her with your paw." },
         { text: "No response. Her breathing is shallow, almost imperceptible." }
       ],
-      nextSceneId: 'scene_07',
+      nextSceneId: 'scene_7',
     },
     {
-      id: 'scene_07',
+      id: 'scene_7',
       image: 'scene_7.png',
       steps: [
         { text: "A strange scent lingers around her." },
@@ -64,17 +64,17 @@ export const scenes = [
   
     // Investigate the Apartment path
     {
-      id: 'scene_08',
+      id: 'scene_8',
       image: 'scene_8.png',
       steps: [
         { text: "In the kitchen, a broken glass lies on the floor." },
         { text: "There’s spilled milk... and something that smells metallic." },
         { text: "Blood?" }
       ],
-      nextSceneId: 'scene_09',
+      nextSceneId: 'scene_9',
     },
     {
-      id: 'scene_09',
+      id: 'scene_9',
       image: 'scene_9.png',
       steps: [
         { text: "The bedroom is chaotic." },
