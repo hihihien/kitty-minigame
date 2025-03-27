@@ -1,2 +1,3 @@
-# kitty-minigame-
+# kitty-minigame
+
 an uni project
