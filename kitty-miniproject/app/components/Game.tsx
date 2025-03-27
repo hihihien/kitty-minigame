@@ -41,6 +41,12 @@ export default function Game (){
         setHistory(history.slice(0,-1)); 
     };
 
+    const handleRestart = () => {
+        setCurrentSceneId('scene_1');
+        setStepIndex(0);
+        setHistory([]);
+    };
+
     const handleChoice = (nextId: string) => {
         setCurrentSceneId(nextId);
         setStepIndex(0);
@@ -96,7 +102,13 @@ export default function Game (){
                                 {choice.text}
                             </button>
                         ))
-                    ) : null }
+                    ) : (
+                        <button
+                            onClick={handleRestart}
+                            className="bg-white text-black py-2 px-6 rounded hover:bg-gray-300 transition"
+                        > Play Again
+                        </button>
+                    ) }
                 </div>
             </div>
         </div>
