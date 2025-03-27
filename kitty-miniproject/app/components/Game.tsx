@@ -10,6 +10,7 @@ import Image from 'next/image';
 export default function Game (){
     const [currentSceneId, setCurrentSceneId] = useState('scene_1');
     const [stepIndex, setStepIndex] = useState(0);
+    const [history, setHistory] = useState<{ sceneId: string; stepIndex: number }[]>([]);
 
     const scene = scenes.find((s) => s.id === currentSceneId);
     const step = scene?.steps?.[stepIndex] || null;
@@ -21,12 +22,23 @@ export default function Game (){
         const isLastStep = stepIndex >= scene.steps.length - 1;
 
         if (!isLastStep) {
+            setHistory([...history, { sceneId: currentSceneId, stepIndex}]);
             setStepIndex(stepIndex + 1); 
         } else if (scene.nextSceneId) {
+            setHistory([...history, { sceneId: currentSceneId, stepIndex }]);
             setCurrentSceneId(scene.nextSceneId);
             setStepIndex(0);
         }
         // do nothing if it's last step
+    };
+
+    const handleBack = () => {
+        const previous = history[history.length - 1];
+        if (!previous) return;
+
+        setCurrentSceneId(previous.sceneId);
+        setStepIndex(previous.stepIndex);
+        setHistory(history.slice(0,-1)); 
     };
 
     const handleChoice = (nextId: string) => {
@@ -47,7 +59,7 @@ export default function Game (){
                         alt={'Scene ${scene.id}'}
                         width={1920}
                         height={1080}
-                        className='w-full h-auto'  
+                        className='w-full h-auto rounded-xl shadow-xl'  
                     />
                 ) : (
                     <div className='w-full h-[400px] bg-gray-800 flex items-center justify-center'>
@@ -61,11 +73,19 @@ export default function Game (){
 
                 <div className='mt-8 space-y-4'>
                     {stepIndex < scene.steps.length - 1 || scene.nextSceneId ? (
-                        <button
-                            onClick={handleNext}
-                            className='bg-white text-black py-2 px-6 rounded hover:bg-gray-300 transition'
-                        >Next
-                        </button>
+                        <>
+                            <button
+                                onClick={handleBack}
+                                disabled={history.length === 0}
+                                className='bg-gray-700 text-white py-2 px-6 rounded hover:bg-gray-600 transition disabled:opacity-50'
+                            >Return
+                            </button>
+                            <button
+                                onClick={handleNext}
+                                className='bg-white text-black py-2 px-6 rounded hover:bg-gray-300 transition'
+                            >Next
+                            </button>
+                        </> 
                     ) : scene.choices ? (
                         scene.choices.map((choice, index) => (
                             <button
