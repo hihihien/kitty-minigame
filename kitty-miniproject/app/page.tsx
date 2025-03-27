@@ -1,9 +1,10 @@
+// import Link from "next/link";
+import Game from "./components/Game";
 
 export default function Home() {
   return (
     <main>
-      <h1>Hello</h1>
-      <a href="/users">Users</a>
+      <Game />
     </main>
   );
 }
