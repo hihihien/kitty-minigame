@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { scenes } from './scenes';
 import { sceneImages } from './images';
 import Image from 'next/image';
@@ -20,18 +20,13 @@ export default function Game() {
   const handleStartGame = () => {
     setStarted(true);
 
-    if (bgmRef.current) {
-      bgmRef.current.volume = 0.5;
-      bgmRef.current.play().catch(() => {});
+    const bgm = bgmRef.current;
+    if (bgm) {
+      bgm.currentTime = 0;
+      bgm.volume = 0.5;
+      bgm.play().catch(() => {});
     }
   };
-
-  useEffect(() => {
-    if (!started && bgmRef.current) {
-      bgmRef.current.volume = 0.5;
-      bgmRef.current.play().catch(() => {});
-    }
-  }, [started]);
 
   useEffect(() => {
     if (scene?.id === 'scene_6') {
