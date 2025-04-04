@@ -15,57 +15,21 @@ export default function Game() {
   const step = scene?.steps?.[stepIndex] || null;
   const image = scene ? sceneImages[scene.id] : undefined;
 
-  const titleMusicRef = useRef<HTMLAudioElement | null>(null);
-  const gameMusicRef = useRef<HTMLAudioElement | null>(null);
-
-  const fadeOutAudio = (audio: HTMLAudioElement, callback?: () => void) => {
-    const fade = setInterval(() => {
-      if (audio.volume > 0.05) {
-        audio.volume -= 0.05;
-      } else {
-        audio.pause();
-        clearInterval(fade);
-        callback?.();
-      }
-    }, 100);
-  };
-
-  const fadeInAudio = (audio: HTMLAudioElement) => {
-    audio.volume = 0;
-    audio.play().catch(() => {});
-    const fade = setInterval(() => {
-      if (audio.volume < 0.5) {
-        audio.volume += 0.05;
-      } else {
-        clearInterval(fade);
-      }
-    }, 100);
-  };
+  const bgmRef = useRef<HTMLAudioElement | null>(null);
 
   const handleStartGame = () => {
-    const titleAudio = titleMusicRef.current;
-    const gameAudio = gameMusicRef.current;
+    setStarted(true);
 
-    if (titleAudio) {
-      fadeOutAudio(titleAudio, () => {
-        if (gameAudio) {
-          fadeInAudio(gameAudio);
-        }
-        setStarted(true);
-      });
-    } else {
-      if (gameAudio) {
-        gameAudio.volume = 0.5;
-        gameAudio.play().catch(() => {});
-      }
-      setStarted(true);
+    if (bgmRef.current) {
+      bgmRef.current.volume = 0.5;
+      bgmRef.current.play().catch(() => {});
     }
   };
 
   useEffect(() => {
-    if (!started && titleMusicRef.current) {
-      titleMusicRef.current.volume = 0.5;
-      titleMusicRef.current.play().catch(() => {});
+    if (!started && bgmRef.current) {
+      bgmRef.current.volume = 0.5;
+      bgmRef.current.play().catch(() => {});
     }
   }, [started]);
 
@@ -117,8 +81,7 @@ export default function Game() {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center bg-black text-white">
         <div className="w-full max-w-3xl">
-          <audio ref={titleMusicRef} src="/audio/title.wav" loop />
-          <audio ref={gameMusicRef} src="/audio/bgm.wav" loop />
+          <audio ref={bgmRef} src="/audio/bgm.wav" loop />
 
           <Image
             src={sceneImages['scene_1']}
