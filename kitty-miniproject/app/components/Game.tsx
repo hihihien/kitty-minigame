@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { scenes } from './scenes';
 import { sceneImages } from './images';
 import Image from 'next/image';
@@ -16,8 +16,46 @@ export default function Game (){
     const step = scene?.steps?.[stepIndex] || null;
     const image = sceneImages[scene?.id || '']; //fallback just in case
 
+    const bgmRef = useRef<HTMLAudioElement | null>(null);
+    const clickSound = useRef<HTMLAudioElement | null>(null);
+
+
+    useEffect(() => {
+        const handleInteraction = () => {
+            if (bgmRef.current) {
+            bgmRef.current.volume = 0.5;
+            bgmRef.current.play().catch(() => {}); 
+        }
+        window.removeEventListener('click', handleInteraction);
+        };
+
+        window.addEventListener('click', handleInteraction);
+        return () => window.removeEventListener('click', handleInteraction);
+    }, []);
+
+    //preload click sound
+    useEffect(() => {
+        clickSound.current = new Audio('/audio/click.wav');
+        clickSound.current.volume = 0.6;
+
+    }, []);
+
+    const playClick = () => {
+        clickSound.current?.play().catch(() => {});
+    };
+
+    //purr for scene 6
+    useEffect (() => {
+        if (scene?.id === 'scene_6') {
+            const purr = new Audio('/audio/purr.wav');
+            purr.volume = 0.3;
+            purr.play();
+        }
+    }, [scene]);
+
     const handleNext = () => {
         if (!scene) return;
+        playClick();
 
         const isLastStep = stepIndex >= scene.steps.length - 1;
 
@@ -36,18 +74,22 @@ export default function Game (){
         const previous = history[history.length - 1];
         if (!previous) return;
 
+        playClick();
         setCurrentSceneId(previous.sceneId);
         setStepIndex(previous.stepIndex);
         setHistory(history.slice(0,-1)); 
     };
 
     const handleRestart = () => {
+        playClick(); 
         setCurrentSceneId('scene_1');
         setStepIndex(0);
         setHistory([]);
     };
 
     const handleChoice = (nextId: string) => {
+        playClick(); 
+        setHistory([...history, { sceneId: currentSceneId, stepIndex }]);
         setCurrentSceneId(nextId);
         setStepIndex(0);
     };
@@ -56,9 +98,12 @@ export default function Game (){
         return <p>Scene not found</p>
     }
 
+
+
     return (
         <div className='flex flex-col items-center justify-center min-h-screen p-4 text-center bg-black text-white'>
             <div className='w-full max-w-3xl'>
+                <audio ref={bgmRef} src="/audio/bgm.wav" loop />
                 {image ? (
                     <Image 
                         src={image} 
