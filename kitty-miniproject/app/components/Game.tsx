@@ -8,30 +8,60 @@ import Image from 'next/image';
 
 
 export default function Game (){
+    const [started, setStarted] = useState(false);
     const [currentSceneId, setCurrentSceneId] = useState('scene_1');
     const [stepIndex, setStepIndex] = useState(0);
     const [history, setHistory] = useState<{ sceneId: string; stepIndex: number }[]>([]);
 
     const scene = scenes.find((s) => s.id === currentSceneId);
     const step = scene?.steps?.[stepIndex] || null;
-    const image = sceneImages[scene?.id || '']; //fallback just in case
+    const image = scene ? sceneImages[scene.id] : undefined; //fallback just in case
 
-    const bgmRef = useRef<HTMLAudioElement | null>(null);
+    const titleMusicRef = useRef<HTMLAudioElement | null>(null);
+    const gameMusicRef = useRef<HTMLAudioElement | null>(null);
     const clickSound = useRef<HTMLAudioElement | null>(null);
 
+    const fadeOutAudio = (audio:HTMLAudioElement, callback?: () => void) => {
+        const fade = setInterval(() => {
+            if (audio.volume > 0.05) {
+                audio.volume -= 0.5;
+            } else {
+                audio.pause();
+                clearInterval(fade);
+                callback?.();
+            }
+        }, 100);
+    };
+
+    const fadeInAudio = (audio:HTMLAudioElement) => {
+        audio.volume = 0;
+        audio.play();
+        const fade = setInterval(() => {
+            if (audio.volume < 0.05) {
+                audio.volume += 0.5;
+            } else {
+                clearInterval(fade);
+            }
+        }, 100);
+    };
+
+    const handleStartGame = () => {
+        if (titleMusicRef.current && gameMusicRef.current) {
+            fadeOutAudio(titleMusicRef.current, () => {
+                fadeInAudio(gameMusicRef.current!);
+                setStarted(true);
+            });
+        } else {
+            setStarted(true);
+        }
+    };
 
     useEffect(() => {
-        const handleInteraction = () => {
-            if (bgmRef.current) {
-            bgmRef.current.volume = 0.5;
-            bgmRef.current.play().catch(() => {}); 
+        if (!started && titleMusicRef.current) {
+            titleMusicRef.current.volume = 0.5;
+            titleMusicRef.current.play().catch(() => {});
         }
-        window.removeEventListener('click', handleInteraction);
-        };
-
-        window.addEventListener('click', handleInteraction);
-        return () => window.removeEventListener('click', handleInteraction);
-    }, []);
+    }, [started]);
 
     //preload click sound
     useEffect(() => {
@@ -43,7 +73,7 @@ export default function Game (){
     const playClick = () => {
         clickSound.current?.play().catch(() => {});
     };
-
+    
     //purr for scene 6
     useEffect (() => {
         if (scene?.id === 'scene_6') {
@@ -53,8 +83,21 @@ export default function Game (){
         }
     }, [scene]);
 
+    // useEffect(() => {
+    //     const handleInteraction = () => {
+    //         if (bgmRef.current) {
+    //         bgmRef.current.volume = 0.5;
+    //         bgmRef.current.play().catch(() => {}); 
+    //     }
+    //     window.removeEventListener('click', handleInteraction);
+    //     };
+
+    //     window.addEventListener('click', handleInteraction);
+    //     return () => window.removeEventListener('click', handleInteraction);
+    // }, []);
+
     const handleNext = () => {
-        if (!scene) return;
+        if (!scene || !scene.steps) return;
         playClick();
 
         const isLastStep = stepIndex >= scene.steps.length - 1;
@@ -94,27 +137,57 @@ export default function Game (){
         setStepIndex(0);
     };
 
-    if (!scene) {
-        return <p>Scene not found</p>
-    }
+    // if (!scene) {
+    //     return <p>Scene not found</p>
+    // }
 
+    if (!started) {
+        return (
+            <div className='flex flex-col items-center justify-center min-h-screen p-4 text-center bg-black text-white'>
+                <div className='w-full max-w-3xl'>
+                    <audio ref={titleMusicRef} src="/audio/title.wav" loop />
+                    <audio ref={gameMusicRef} src="/audio/bgm.wav" loop />
+
+                    <Image
+                        src={sceneImages['scene_1']}
+                        alt='Start Scene'
+                        placeholder='blur'
+                        width={1920}
+                        height={1080}
+                        className='w-full h-auto rounded-xl shadow-xl mb-8'                     
+                    />
+                    <h1 className='text-3xl font-bold mb-6'>The Cat Forgotten Night</h1>
+
+                    <button
+                        onClick={handleStartGame}
+                        className='bg-whte text-black py-2 px-8 rounded hover:bg-gray-300 transition'
+                    >
+                        Start Game
+                    </button>
+                </div>
+                
+
+            </div>
+        );
+    }
 
 
     return (
         <div className='flex flex-col items-center justify-center min-h-screen p-4 text-center bg-black text-white'>
             <div className='w-full max-w-3xl'>
-                <audio ref={bgmRef} src="/audio/bgm.wav" loop />
-                {image ? (
+                <audio ref={gameMusicRef} src="/audio/bgm.wav" loop />
+                {scene && image ? (
                     <Image 
                         src={image} 
                         alt={'Scene ${scene.id}'}
+                        placeholder='blur'
                         width={1920}
                         height={1080}
                         className='w-full h-auto rounded-xl shadow-xl'  
                     />
                 ) : (
                     <div className='w-full h-[400px] bg-gray-800 flex items-center justify-center'>
-                        <p className='text-white'>Image not found for this scene.</p>
+                        <p className='text-white'>Scene or image not found.</p>
                     </div>
                 )}
                 
@@ -123,7 +196,7 @@ export default function Game (){
                 </div>
 
                 <div className='mt-8 space-y-4'>
-                    {stepIndex < scene.steps.length - 1 || scene.nextSceneId ? (
+                    {stepIndex < (scene?.steps?.length ?? 0) - 1 || scene?.nextSceneId ? (
                         <>
                             <button
                                 onClick={handleBack}
@@ -137,7 +210,7 @@ export default function Game (){
                             >Next
                             </button>
                         </> 
-                    ) : scene.choices ? (
+                    ) : scene?.choices ? (
                         scene.choices.map((choice, index) => (
                             <button
                                 key={index}
