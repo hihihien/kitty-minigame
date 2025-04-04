@@ -17,9 +17,7 @@ export default function Game() {
 
   const titleMusicRef = useRef<HTMLAudioElement | null>(null);
   const gameMusicRef = useRef<HTMLAudioElement | null>(null);
-  const clickSound = useRef<HTMLAudioElement | null>(null);
 
-  // fade
   const fadeOutAudio = (audio: HTMLAudioElement, callback?: () => void) => {
     const fade = setInterval(() => {
       if (audio.volume > 0.05) {
@@ -64,7 +62,6 @@ export default function Game() {
     }
   };
 
-  // autoplay title music
   useEffect(() => {
     if (!started && titleMusicRef.current) {
       titleMusicRef.current.volume = 0.5;
@@ -72,17 +69,6 @@ export default function Game() {
     }
   }, [started]);
 
-  // preload click sound
-  useEffect(() => {
-    clickSound.current = new Audio('/audio/click.wav');
-    clickSound.current.volume = 0.6;
-  }, []);
-
-  const playClick = () => {
-    clickSound.current?.play().catch(() => {});
-  };
-
-  //scene specific audio
   useEffect(() => {
     if (scene?.id === 'scene_6') {
       const purr = new Audio('/audio/purr.wav');
@@ -93,7 +79,6 @@ export default function Game() {
 
   const handleNext = () => {
     if (!scene || !scene.steps) return;
-    playClick();
 
     const isLastStep = stepIndex >= scene.steps.length - 1;
 
@@ -111,27 +96,23 @@ export default function Game() {
     const previous = history[history.length - 1];
     if (!previous) return;
 
-    playClick();
     setCurrentSceneId(previous.sceneId);
     setStepIndex(previous.stepIndex);
     setHistory(history.slice(0, -1));
   };
 
   const handleChoice = (nextId: string) => {
-    playClick();
     setHistory([...history, { sceneId: currentSceneId, stepIndex }]);
     setCurrentSceneId(nextId);
     setStepIndex(0);
   };
 
   const handleRestart = () => {
-    playClick();
     setCurrentSceneId('scene_1');
     setStepIndex(0);
     setHistory([]);
   };
 
-  // start scrren
   if (!started) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center bg-black text-white">
@@ -161,7 +142,6 @@ export default function Game() {
     );
   }
 
-  // game
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center bg-black text-white">
       <div className="w-full max-w-3xl">
