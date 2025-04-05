@@ -65,10 +65,16 @@ export const scenes = [
     },
     // Approach the Girl path
     {
+      id: 'scene_8',
+      image: 'scene_8.png',
+      steps: [
+        { text: "You step closer and gently nudge her with your paw." }      ],
+      nextSceneId: 'scene_9',
+    },
+    {
       id: 'scene_9',
       image: 'scene_9.png',
       steps: [
-        { text: "You step closer and gently nudge her with your paw." },
         { text: "No response. Her breathing is shallow, almost imperceptible." }
       ],
       nextSceneId: 'scene_10',
