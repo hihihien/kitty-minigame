@@ -24,7 +24,9 @@ export default function Game() {
     if (bgm) {
       bgm.currentTime = 0;
       bgm.volume = 0.5;
-      bgm.play().catch(() => {});
+      bgm.play().catch((err) => {
+        console.warn('Autoplay blocked:', err);
+      });
     }
   };
 
@@ -72,93 +74,93 @@ export default function Game() {
     setHistory([]);
   };
 
-  if (!started) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center bg-black text-white">
-        <div className="w-full max-w-3xl">
-          <audio ref={bgmRef} src="/audio/bgm.wav" loop />
-
-          <Image
-            src={sceneImages['scene_1']}
-            alt="Start Scene"
-            placeholder="blur"
-            width={1920}
-            height={1080}
-            className="w-full h-auto rounded-xl shadow-xl mb-8"
-          />
-
-          <h1 className="text-3xl font-bold mb-6">The Cat's Forgotten Night</h1>
-
-          <button
-            onClick={handleStartGame}
-            className="bg-white text-black py-2 px-8 rounded hover:bg-gray-300 transition"
-          >
-            Start Game
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center bg-black text-white">
-      <div className="w-full max-w-3xl">
-        {scene && image ? (
-          <Image
-            src={image}
-            alt={`Scene ${scene.id}`}
-            placeholder="blur"
-            width={1920}
-            height={1080}
-            className="w-full h-auto rounded-xl shadow-xl"
-          />
-        ) : (
-          <div className="w-full h-[400px] bg-gray-800 flex items-center justify-center">
-            <p className="text-white">Scene or image not found.</p>
-          </div>
-        )}
+    <>
+      <audio ref={bgmRef} src="/audio/bgm.wav" loop />
 
-        <div className="mt-6 text-lg leading-relaxed min-h-[4rem]">
-          {step && <p>{step.text}</p>}
-        </div>
+      {!started ? (
+        <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center bg-black text-white">
+          <div className="w-full max-w-3xl">
+            <Image
+              src={sceneImages['scene_1']}
+              alt="Start Scene"
+              placeholder="blur"
+              width={1920}
+              height={1080}
+              className="w-full h-auto rounded-xl shadow-xl mb-8"
+            />
 
-        <div className="mt-8 space-y-4">
-          {stepIndex < (scene?.steps?.length ?? 0) - 1 || scene?.nextSceneId ? (
-            <>
-              <button
-                onClick={handleBack}
-                disabled={history.length === 0}
-                className="bg-gray-700 text-white py-2 px-6 rounded hover:bg-gray-600 transition disabled:opacity-50"
-              >
-                Return
-              </button>
-              <button
-                onClick={handleNext}
-                className="bg-white text-black py-2 px-6 rounded hover:bg-gray-300 transition"
-              >
-                Next
-              </button>
-            </>
-          ) : scene?.choices ? (
-            scene.choices.map((choice, index) => (
-              <button
-                key={index}
-                onClick={() => handleChoice(choice.nextSceneId)}
-                className="block w-full bg-white text-black py-2 px-6 rounded hover:bg-gray-300 transition"
-              >
-                {choice.text}
-              </button>
-            ))
-          ) : (
+            <h1 className="text-3xl font-bold mb-6">The Cat's Forgotten Night</h1>
+
             <button
-              onClick={handleRestart}
-              className="bg-white text-black py-2 px-6 rounded hover:bg-gray-300 transition"
+              onClick={handleStartGame}
+              className="bg-white text-black py-2 px-8 rounded hover:bg-gray-300 transition"
             >
-              Play Again
+              Start Game
             </button>
-          )}
+          </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center bg-black text-white">
+          <div className="w-full max-w-3xl">
+            {scene && image ? (
+              <Image
+                src={image}
+                alt={`Scene ${scene.id}`}
+                placeholder="blur"
+                width={1920}
+                height={1080}
+                className="w-full h-auto rounded-xl shadow-xl"
+              />
+            ) : (
+              <div className="w-full h-[400px] bg-gray-800 flex items-center justify-center">
+                <p className="text-white">Scene or image not found.</p>
+              </div>
+            )}
+
+            <div className="mt-6 text-lg leading-relaxed min-h-[4rem]">
+              {step && <p>{step.text}</p>}
+            </div>
+
+            <div className="mt-8 space-y-4">
+              {stepIndex < (scene?.steps?.length ?? 0) - 1 || scene?.nextSceneId ? (
+                <>
+                  <button
+                    onClick={handleBack}
+                    disabled={history.length === 0}
+                    className="bg-gray-700 text-white py-2 px-6 rounded hover:bg-gray-600 transition disabled:opacity-50"
+                  >
+                    Return
+                  </button>
+                  <button
+                    onClick={handleNext}
+                    className="bg-white text-black py-2 px-6 rounded hover:bg-gray-300 transition"
+                  >
+                    Next
+                  </button>
+                </>
+              ) : scene?.choices ? (
+                scene.choices.map((choice, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleChoice(choice.nextSceneId)}
+                    className="block w-full bg-white text-black py-2 px-6 rounded hover:bg-gray-300 transition"
+                  >
+                    {choice.text}
+                  </button>
+                ))
+              ) : (
+                <button
+                  onClick={handleRestart}
+                  className="bg-white text-black py-2 px-6 rounded hover:bg-gray-300 transition"
+                >
+                  Play Again
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
