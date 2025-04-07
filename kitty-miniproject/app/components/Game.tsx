@@ -23,7 +23,7 @@ export default function Game() {
     const bgm = bgmRef.current;
     if (bgm) {
       bgm.currentTime = 0;
-      bgm.volume = 0.5;
+      bgm.volume = 0.2;
       bgm.play().catch((err) => {
         console.warn('Autoplay blocked:', err);
       });
@@ -31,9 +31,32 @@ export default function Game() {
   };
 
   useEffect(() => {
-    if (scene?.id === 'scene_6') {
+    const sceneSoundMap: Record<string, string> = {
+      'scene_2': '/audio/snore.wav',
+      'scene_3': '/audio/lick.mp3',
+      'scene_4': '/audio/meo.wav',
+      'scene_9': '/audio/bop.wav',
+      'scene_8': '/audio/meo.wav',
+      'scene_14': '/audio/meo2.mp3',
+      'scene_15': '/audio/meo2.mp3',
+      'scene_16': '/audio/cough.mp3',
+      'scene_17': '/audio/lick.wav',
+      
+    };
+
+    if (scene && sceneSoundMap[scene.id]) {
+      const sound = new Audio(sceneSoundMap[scene.id]);
+      sound.volume = 1;
+      sound.play().catch(() => {});
+    }
+  }, [scene]);
+
+  useEffect(() => {
+    const purrScenes = ['scene_6', 'scene_10'];
+
+    if (scene && purrScenes.includes(scene.id)) {
       const purr = new Audio('/audio/purr.wav');
-      purr.volume = 0.3;
+      purr.volume = 0.1;
       purr.play().catch(() => {});
     }
   }, [scene]);
