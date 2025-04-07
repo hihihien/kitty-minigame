@@ -140,9 +140,7 @@ export const scenes = [
       id: 'scene_15',
       image: 'scene_15.png',
       steps: [
-        { text: "You lick her cheek gently. Her eyes flutter open." },
-        { text: "She gasps for air, weak but alive. You stay by her side." },
-        { text: "You are a Loyal Guardian." }
+        { text: "You lick her cheek gently. Her eyes flutter open." }
       ]
     },
     {
@@ -150,7 +148,8 @@ export const scenes = [
       image: 'scene_16.png',
       steps: [
         { text: "She gasps for air, weak but alive. You stay by her side." },
-        { text: "You are a Loyal Guardian." }
+        { text: "You are a Loyal Guardian." },
+        { text: "You are someone who puts others first, even when the world is crumbling around you. Loyalty is your anchor, and love is your compass. When things fall apart, you don’t run—you reach out, even if it hurts. You believe in the quiet power of presence, and the strength of simply being there when it matters most. People may not always notice the weight you carry, but you carry it anyway. And in doing so, you become someone others can trust, even in the dark." }
       ]
     },
     {
@@ -167,7 +166,9 @@ export const scenes = [
       image: 'scene_18.png',
       steps: [
         { text: "You leap onto the sill and slip into the night." },
-        { text: "You are a Wandering Soul." }
+        { text: "You are a Wandering Soul." },
+        { text: "You are someone who seeks meaning beyond the walls you wake up in. You crave freedom, not just physically—but emotionally, spiritually. The unknown doesn’t scare you; it calls to you. And even when you don’t have the answers, you keep moving, searching, growing. Sometimes you leave things behind, not because you don’t care, but because you know you must find yourself first. You are restless, deep-thinking, and always a little bit elsewhere. But that’s okay—some souls aren’t meant to stay in one place." }
+  ]
       ]
     },
     {
@@ -191,7 +192,8 @@ export const scenes = [
       id: 'scene_21',
       image: 'scene_21.png',
       steps: [
-        { text: "You are a Fearless Defender." }
+        { text: "You are a Fearless Defender." },
+        { text: "You don’t back down. When something threatens the people or places you care about, you rise. It doesn’t matter if you’re afraid—you face the storm anyway. You are brave not because you feel invincible, but because you choose to protect even when you're unsure. You have a fierce heart and an unshakable sense of duty. Sometimes it feels like the world asks too much of you—but you keep standing, because deep down, you know someone has to. And you’ve decided that someone is you." }
       ]
     },
     {
@@ -200,7 +202,8 @@ export const scenes = [
       steps: [
         { text: "You curl beside her and wait." },
         { text: "Time passes. The world outside fades away." },
-        { text: "You are a Dreamer." }
+        { text: "You are a Dreamer." },
+        { text: "You find comfort in stillness, in imagination, in the stories you create within your own mind. When the world becomes too loud or too cruel, you retreat—but not to escape. You retreat to hope. You believe in the beauty of moments, the softness of silence, and the quiet strength of waiting. People might not understand how deep your inner world goes, but it’s there—vast, layered, and full of wonder. You are the kind of person who keeps believing in happy endings, even when no one else does." }
       ]
     }
   ];
