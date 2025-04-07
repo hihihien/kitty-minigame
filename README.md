@@ -1,3 +1,3 @@
 # kitty-minigame
 
-an uni project
+jff
