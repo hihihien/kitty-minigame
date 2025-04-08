@@ -113,7 +113,7 @@ export default function Game() {
               className="w-full h-auto rounded-xl shadow-xl mb-8"
             />
 
-            <h1 className="text-3xl font-bold mb-6">The Cat's Forgotten Night</h1>
+            <h1 className="text-3xl font-bold mb-6">The Cat&apos;s Forgotten Night</h1>
 
             <button
               onClick={handleStartGame}
