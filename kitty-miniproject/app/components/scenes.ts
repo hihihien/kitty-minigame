@@ -131,9 +131,9 @@ export const scenes = [
       ],
       choices: [
         { text: "try to wake the girl up", nextSceneId: 'scene_15' },
-        { text: "find way to get out of here", nextSceneId: 'scene_17' },
-        { text: "face whatever is coming in here", nextSceneId: 'scene_19' },
-        { text: "just wait or go back to sleep", nextSceneId: 'scene_22' }
+        { text: "find way to get out of here", nextSceneId: 'scene_18' },
+        { text: "face whatever is coming in here", nextSceneId: 'scene_21' },
+        { text: "just wait or go back to sleep", nextSceneId: 'scene_24' }
       ]
     },
     {
@@ -148,52 +148,34 @@ export const scenes = [
       id: 'scene_16',
       image: 'scene_16.png',
       steps: [
-        { text: "She gasps for air, weak but alive" }
+        { text: "She gasps for air, weak but alive" },
+        { text: "You decided to stay by her side. Whatever happened, she will survive—and so will you." }
       ],
-      nextSceneId: 'Scene_23'
-    },
-    {
-      id: 'scene_23',
-      image: 'scene_23.png',
-      steps: [
-        { text: "You decided to stay by her side. Whatever happened, she will survive—and so will you." },
-        { text: "You are a Loyal Guardian." },
-        { text: "You value those you care for above all else. Even in uncertainty, you act with kindness and instinctive protection. You are driven by love and connection." }
-      ]
+      nextSceneId: 'scene_17'
     },
     {
       id: 'scene_17',
       image: 'scene_17.png',
       steps: [
-        { text: "A breeze blows in from the cracked window." },
-        { text: "The world outside is vast and unfamiliar, but something inside you tells you to run." },
-        { text: "Maybe the truth is too much to bear." },
-        { text: "You leap onto the windowsill and slip out into the night." }
-      ],
-      nextSceneId: 'scene_25'
-    },
-    {
-      id: 'scene_25',
-      image: 'scene_25.png',
-      steps: [
-        { text: "Maybe the truth is too much to bear." },
-        { text: "You leap onto the windowsill and slip out into the night." }
-      ],
-      nextSceneId: 'scene_18'
+        { text: "You are a Loyal Guardian." },
+        { text: "You value those you care for above all else. Even in uncertainty, you act with kindness and instinctive protection. You are driven by love and connection." }
+      ]
     },
     {
       id: 'scene_18',
       image: 'scene_18.png',
       steps: [
-        { text: "You are a Wandering Soul." },
-        { text: "You are someone who seeks meaning beyond the walls you wake up in. You crave freedom, not just physically—but emotionally, spiritually. The unknown doesn’t scare you; it calls to you. And even when you don’t have the answers, you keep moving, searching, growing. Sometimes you leave things behind, not because you don’t care, but because you know you must find yourself first. You are restless, deep-thinking, and always a little bit elsewhere. But that’s okay—some souls aren’t meant to stay in one place." }
-      ]
+        { text: "A breeze blows in from the cracked window." },
+        { text: "The world outside is vast and unfamiliar, but something inside you tells you to run." },
+      ], 
+      nextSceneId: 'scene_19'
     },
     {
       id: 'scene_19',
       image: 'scene_19.png',
       steps: [
-        { text: "A shadow moves behind you. Something... or someone is here?" }
+        { text: "Maybe the truth is too much to bear." },
+        { text: "You leap onto the windowsill and slip out into the night." }
       ],
       nextSceneId: 'scene_20'
     },
@@ -201,28 +183,59 @@ export const scenes = [
       id: 'scene_20',
       image: 'scene_20.png',
       steps: [
+        { text: "You are a Wandering Soul." },
+        { text: "You are someone who seeks meaning beyond the walls you wake up in. You crave freedom, not just physically—but emotionally, spiritually. The unknown doesn’t scare you; it calls to you. And even when you don’t have the answers, you keep moving, searching, growing. Sometimes you leave things behind, not because you don’t care, but because you know you must find yourself first. You are restless, deep-thinking, and always a little bit elsewhere. But that’s okay—some souls aren’t meant to stay in one place." }
+      ]
+    },
+    {
+      id: 'scene_21',
+      image: 'scene_21.png',
+      steps: [
+        { text: "A shadow moves behind you. Something... or someone is here?" }
+      ],
+      nextSceneId: 'scene_22'
+    },
+    {
+      id: 'scene_22',
+      image: 'scene_22.png',
+      steps: [
         { text: "You arch your back and hiss." },
         { text: "In the final moment, your memories return—you weren’t just her pet, you were guarding her." },
         { text: "And now, you fight." }
 
       ],
-      nextSceneId: 'scene_21'
+      nextSceneId: 'scene_23'
     },
     {
-      id: 'scene_21',
-      image: 'scene_21.png',
+      id: 'scene_23',
+      image: 'scene_23.png',
       steps: [
         { text: "You are a Fearless Defender." },
         { text: "You don’t back down. When danger comes, you stand your ground. You protect those who matter, even if it means facing the unknown head-on. You trust your instincts and act with courage." }
       ]
     },
     {
-      id: 'scene_22',
-      image: 'scene_22.png',
+      id: 'scene_24',
+      image: 'scene_24.png',
       steps: [
-        { text: "You curl up beside the girl, waiting." },
+        { text: "You curl up beside the girl, waiting." }
+      ],
+      nextSceneId: 'scene_25'
+    },
+    {
+      id: 'scene_25',
+      image: 'scene_25.png',
+      steps: [
+        
         { text: "Time passes. The world outside fades, and so does she." },
         { text: "The truth remains unknown, lost in the silence of the room." },
+      ],
+      nextSceneId: 'scene_26'
+    },
+    {
+      id: 'scene_26',
+      image: 'scene_26.png',
+      steps: [
         { text: "You are a Dreamer." },
         { text: "You find comfort in stillness, in imagination, in the stories you create within your own mind. When the world becomes too loud or too cruel, you retreat—but not to escape. You retreat to hope. You believe in the beauty of moments, the softness of silence, and the quiet strength of waiting. People might not understand how deep your inner world goes, but it’s there—vast, layered, and full of wonder. You are the kind of person who keeps believing in happy endings, even when no one else does." }
       ]

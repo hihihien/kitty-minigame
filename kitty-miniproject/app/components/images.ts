@@ -22,6 +22,12 @@ import scene19 from '@/public/img/scene_19.png';
 import scene20 from '@/public/img/scene_20.png';
 import scene21 from '@/public/img/scene_21.png';
 import scene22 from '@/public/img/scene_22.png';
+import scene23 from '@/public/img/scene_22.png';
+import scene24 from '@/public/img/scene_22.png';
+import scene25 from '@/public/img/scene_22.png';
+import scene26 from '@/public/img/scene_22.png';
+
+
 
 export const sceneImages: Record<string, StaticImageData> = {
     scene_1: scene1,  
@@ -46,4 +52,8 @@ export const sceneImages: Record<string, StaticImageData> = {
     scene_20: scene20,  
     scene_21: scene21,
     scene_22: scene22,
+    scene_23: scene23,  
+    scene_24: scene24,
+    scene_25: scene25,
+    scene_26: scene26,  
 }
