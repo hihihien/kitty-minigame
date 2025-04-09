@@ -22,10 +22,10 @@ import scene19 from '@/public/img/scene_19.png';
 import scene20 from '@/public/img/scene_20.png';
 import scene21 from '@/public/img/scene_21.png';
 import scene22 from '@/public/img/scene_22.png';
-import scene23 from '@/public/img/scene_22.png';
-import scene24 from '@/public/img/scene_22.png';
-import scene25 from '@/public/img/scene_22.png';
-import scene26 from '@/public/img/scene_22.png';
+import scene23 from '@/public/img/scene_23.png';
+import scene24 from '@/public/img/scene_24.png';
+import scene25 from '@/public/img/scene_25.png';
+import scene26 from '@/public/img/scene_26.png';
 
 
 
