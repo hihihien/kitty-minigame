@@ -35,13 +35,15 @@ export default function Game() {
       'scene_2': '/audio/snore.wav',
       'scene_3': '/audio/lick.mp3',
       'scene_4': '/audio/meo.wav',
-      'scene_9': '/audio/bop.wav',
+      'scene_9': '/audio/meo.wav',
       'scene_8': '/audio/meo.wav',
-      'scene_14': '/audio/meo2.mp3',
+      'scene_14': '/audio/meo.wav',
       'scene_15': '/audio/meo2.mp3',
       'scene_16': '/audio/cough.mp3',
-      'scene_17': '/audio/lick.wav',
-      
+      'scene_17': '/audio/tink.wav',
+      'scene_18': '/audio/night.wav',
+      'scene_21': '/audio/noise.wav',
+      'scene_23': '/audio/tink.wav',
     };
 
     if (scene && sceneSoundMap[scene.id]) {
@@ -52,7 +54,7 @@ export default function Game() {
   }, [scene]);
 
   useEffect(() => {
-    const purrScenes = ['scene_6', 'scene_10'];
+    const purrScenes = ['scene_6', 'scene_7','scene_10'];
 
     if (scene && purrScenes.includes(scene.id)) {
       const purr = new Audio('/audio/purr.wav');
