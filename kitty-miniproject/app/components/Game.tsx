@@ -115,7 +115,11 @@ export default function Game() {
               className="w-full h-auto rounded-xl shadow-xl mb-8"
             />
 
-            <h1 className="text-3xl font-bold mb-6">The Cat&apos;s Forgotten Night</h1>
+            <h1 className="text-3xl font-bold m-6">The Cat&apos;s Forgotten Night</h1>
+            <p className='mb-4 text-base text-gray-300'>
+              a mini game by Hien Giang<br />
+              for course Digital Storytelling - WS 24/25
+            </p>
 
             <button
               onClick={handleStartGame}
@@ -135,7 +139,7 @@ export default function Game() {
                 placeholder="blur"
                 width={1920}
                 height={1080}
-                className="w-full h-auto rounded-xl shadow-xl"
+                className="w-full h-auto rounded-xl z-10 shadow-[0_0_80px_rgba(255, 255, 255,0.3)]"
               />
             ) : (
               <div className="w-full h-[400px] bg-gray-800 flex items-center justify-center">
